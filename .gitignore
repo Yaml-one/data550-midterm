@@ -1,5 +1,4 @@
-output/*.rds
-output/*.png
+
 *.html
 .Rproj.user
 .DS_Store
