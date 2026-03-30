@@ -1,0 +1,61 @@
+---
+title: "NBA Player Stats Midterm Report"
+author: "DATA 550 Midterm Group"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+library(here)
+library(knitr)
+library(dplyr)
+
+anova_obj <- readRDS(here("output", "position_pts_anova_results.rds"))
+summary_obj <- readRDS(here("output", "position_pts_summary.rds"))
+age_obj <- readRDS(here("output", "age_mins_regression_results.rds"))
+games_obj <- readRDS(here("output", "games_dreb_regression_results.rds"))
+```
+
+Introduction
+
+This report presents a reproducible analysis of the NBA Player Stats dataset. The objective of the analysis is to examine how player characteristics, including position, age, and number of games played, are associated with key performance outcomes. The workflow is designed to be fully reproducible, allowing the report to be rebuilt automatically when the underlying data are updated.
+
+The analyses focus on understanding whether scoring differs across player positions and whether age and game participation are associated with minutes played and defensive rebounds. These relationships are explored using both analysis of variance and linear regression models.
+
+Table 1
+```{r}
+cat(anova_obj$title, "\n\n")
+kable(anova_obj$table, digits = 3)
+```
+
+The ANOVA results indicate whether average points scored per 36 minutes differ across player positions. If the p-value is statistically significant (p < 0.05), this suggests that at least one position has a different mean scoring rate compared to others. This finding would support the idea that player position is associated with scoring performance. If the p-value is not significant, it suggests that scoring rates are relatively similar across positions.
+
+Table 2
+```{r}
+cat(summary_obj$title, "\n\n")
+kable(summary_obj$table, digits = 2)
+```
+
+The descriptive statistics provide a summary of scoring patterns across player positions. Differences in the mean and median points per 36 minutes suggest variation in offensive roles by position. Positions with higher average values may reflect players who are more involved in scoring, while lower values may indicate roles focused more on defense or playmaking. The standard deviation also highlights the variability in scoring within each position group.
+
+Table 3
+```{r}
+cat(age_obj$title, "\n\n")
+kable(age_obj$table, digits = 3)
+```
+
+The linear regression results describe the association between player age and minutes played. The coefficient for age represents the expected change in minutes played for each additional year of age. A positive coefficient would suggest that older players tend to play more minutes, while a negative coefficient would indicate that younger players receive more playing time. If the p-value is statistically significant, this relationship is unlikely to be due to random variation. However, this analysis reflects association rather than causation.
+
+Table 4
+```{r}
+cat(games_obj$title, "\n\n")
+kable(games_obj$table, digits = 3)
+```
+
+The regression results assess the relationship between the number of games played and defensive rebounds. A positive coefficient suggests that players who participate in more games tend to accumulate more defensive rebounds, which is expected given increased opportunities to play. If the relationship is statistically significant, it indicates a strong association between game participation and defensive performance. However, this relationship should be interpreted cautiously, as the number of games played inherently affects total rebound opportunities.
+
+Conclusion
+
+In summary, this report provides a structured and reproducible overview of selected relationships within the NBA Player Stats dataset. The analyses demonstrate how statistical methods can be used to explore differences in performance across positions and evaluate associations between player characteristics and outcomes. As additional components, such as visualizations, are developed, they can be seamlessly integrated into this workflow.
