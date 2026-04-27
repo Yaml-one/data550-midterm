@@ -16,3 +16,6 @@ output/games_dreb_regression_results.rds
 clean:
 	rm -f output/*.rds
 	rm -f report/report.html
+	
+install:
+	Rscript -e "renv::restore(prompt = FALSE)"
